@@ -1,0 +1,36 @@
+[
+  {
+    "id": "01",
+    "name": "iphone collections",
+    "total_view": 20900,
+    "rating": 8.0,
+    "descrip": "iphone mobile phones at best price only on Becha kena.com, the largest marketplace in Bangladesh. Check out from wide range of new and used iphone phones at ...",
+    "photo_url": "https://ibb.co/jRSrfH7"
+  },
+  {
+    "id": "02",
+    "name": "xiaomi collections",
+    "total_view": 1200,
+    "rating": 1.9,
+    "descrip": "Xiaomi mobile phones at best price only on Becha kena.com, the largest marketplace in Bangladesh. Check out from wide range of new and used Xiaomi phones at ...",
+    "photo_url": "https://ibb.co/9pnMWq9"
+    
+  },
+  {
+    "id": "03",
+    "name": "samsung collections",
+    "total_view": 17100,
+    "rating": 9.0,
+    "descrip": "Samsung mobile phones at best price only on Becha kena.com, the largest marketplace in Bangladesh. Check out from wide range of new and used samsung phones at ...",
+    "photo_url": "https://ibb.co/479Qyqs"
+  },
+  {
+    "id": "04",
+    "name": "oppo collections",
+    "total_view": 8500,
+    "rating": 1.5,
+    "descrip": "Oppo mobile phones at best price only on Becha kena.com, the largest marketplace in Bangladesh. Check out from wide range of new and used Oppo phones at ...",
+    "photo_url": "https://ibb.co/sJNWN2g"
+  }
+
+]
