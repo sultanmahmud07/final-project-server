@@ -62,6 +62,16 @@ async function run() {
     const productsCollection = client.db('finalProjectDB').collection('products');
 
 
+    // NOTE: make sure you use verifyAdmin after verifyJWT
+    const verifyAdmin = async (req, res, next) => {
+      const query = {email: decodedEmail};
+      const user  = await usersCollection.findOne(query);
+
+      if(user?.role !== 'admin'){
+        return res.status(403).send({message: 'forbidden access'})
+      }
+      next()
+    }
 
 
     app.get('/category', async(req, res) => {
@@ -116,10 +126,6 @@ async function run() {
     })
 
 
-
-    //===================================
-    // eta diye admin cheked kora hocche
-    // er vabe chaile user delete o korte parbo
     //=====================================
     app.get('/users/admin/:email', async (req, res) => {
       const email = req.params.email;
@@ -139,21 +145,12 @@ async function run() {
     })
 
 
-
-
-
-
-
-
     //All user Collection code here>>>>
     app.post('/users', async(req, res) => {
       const user = req.body;
       const result = await usersCollection.insertOne(user);
       res.send(result);
     })
-
-
-
 
 
 
@@ -181,18 +178,6 @@ async function run() {
       const result = await usersCollection.updateOne(filter, updatedDoc, options);
       res.send(result);
     });
-
-
-
-    //========================================
-    //I am trying to  User delete in database
-    //=======================================
-    app.put('/users/admin/:id', async(req, res) =>{
-      const id =req.params.id;
-      const query = { _id: ObjectId(id)}
-      const result = await usersCollection.deleteOne(query);
-      res.send(result);
-    })
 
 
     // special data load for category item =======
@@ -223,29 +208,18 @@ async function run() {
 
 
 
-
-
-    // app.get('/category/:id', async(req, res) => {
-    //   const id = req.params.id;
-    //   const query = { category_id: id}
-
-    //   if(id === "05"){
-    //     const quary = {}
-    //     const course = await categoryItemCollection.find(quary).toArray();
-    //     res.send(course);
-    //   }
-    //   else{
-    //     const course = await categoryItemCollection.findOne(query);
-    //     res.send(course);
-
-    //   }
-
-
-    // })
-
     // Delete Products >>>>>>
     //==========================
-    app.delete('/products/:id', async (req, res) => {
+    app.delete('/users/admin/:id', verifyJWT, async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: ObjectId(id)};
+      const result = await usersCollection.deleteOne(filter);
+      res.send(result)
+    })
+
+    // Delete Products >>>>>>
+    //==========================   //chenge
+    app.delete('/products/:id', verifyJWT, async (req, res) => {
       const id = req.params.id;
       const filter = { _id: ObjectId(id)};
       const result = await productsCollection.deleteOne(filter);
@@ -253,13 +227,14 @@ async function run() {
     })
 
 
-    app.get('/products', async(req, res) => {
+                  //chenge
+    app.get('/products', verifyJWT, async(req, res) => {
       const query = {};
       const products = await productsCollection.find(query).toArray();
       res.send(products)
     })
-
-    app.post('/products', async(req, res) => {
+                         //chenge
+    app.post('/products', verifyJWT, async(req, res) => {
       const product = req.body;
       const result = await productsCollection.insertOne(product);
       res.send(result);
