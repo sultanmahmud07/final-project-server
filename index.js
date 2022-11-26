@@ -61,6 +61,8 @@ async function run() {
 
     const productsCollection = client.db('finalProjectDB').collection('products');
 
+    const paymentsCollection = client.db('finalProjectDB').collection('payments');
+
 
     // NOTE: make sure you use verifyAdmin after verifyJWT
     const verifyAdmin = async (req, res, next) => {
