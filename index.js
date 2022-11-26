@@ -194,7 +194,7 @@ async function run() {
 
     app.get('/productSpecialty', async(req, res)=> {
       const query = {}
-      const result = await categoryItemCollection.find(query).project({name: 1}).toArray()
+      const result = await categoryCollection.find(query).project({name: 1}).toArray()
       res.send(result);
     })
 
