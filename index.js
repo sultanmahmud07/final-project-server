@@ -59,6 +59,8 @@ async function run() {
 
     const usersCollection = client.db('finalProjectDB').collection('users');
 
+    const productsCollection = client.db('finalProjectDB').collection('products');
+
 
 
 
@@ -192,6 +194,8 @@ async function run() {
       res.send(result);
     })
 
+
+    // special data load for category item =======
     app.get('/productSpecialty', async(req, res)=> {
       const query = {}
       const result = await categoryCollection.find(query).project({name: 1}).toArray()
