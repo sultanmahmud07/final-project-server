@@ -192,7 +192,11 @@ async function run() {
       res.send(result);
     })
 
-    
+    app.get('/productSpecialty', async(req, res)=> {
+      const query = {}
+      const result = await categoryItemCollection.find(query).project({name: 1}).toArray()
+      res.send(result);
+    })
 
 
     app.get('/products/category/::id', async(req, res) => {
