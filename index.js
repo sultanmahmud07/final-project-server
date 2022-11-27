@@ -63,6 +63,8 @@ async function run() {
 
     const paymentsCollection = client.db('finalProjectDB').collection('payments');
 
+    const reportItemsCollection = client.db('finalProjectDB').collection('reports');
+
 
     // NOTE: make sure you use verifyAdmin after verifyJWT
     const verifyAdmin = async (req, res, next) => {
@@ -167,6 +169,14 @@ async function run() {
     app.post('/users', async(req, res) => {
       const user = req.body;
       const result = await usersCollection.insertOne(user);
+      res.send(result);
+    })
+
+
+    //All user Collection code here>>>>
+    app.post('/reports', async(req, res) => {
+      const reports = req.body;
+      const result = await reportItemsCollection.insertOne(reports);
       res.send(result);
     })
 
