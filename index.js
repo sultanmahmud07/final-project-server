@@ -173,7 +173,15 @@ async function run() {
     })
 
 
-    //All user Collection code here>>>>
+    
+    app.get('/reports', async(req, res) => {
+      const query = {};
+      const report = await reportItemsCollection.find(query).toArray();
+      res.send(report);
+    })
+
+
+    //All reported Collection code here>>>>
     app.post('/reports', async(req, res) => {
       const reports = req.body;
       const result = await reportItemsCollection.insertOne(reports);
@@ -258,6 +266,14 @@ async function run() {
       const id = req.params.id;
       const filter = { _id: ObjectId(id)};
       const result = await productsCollection.deleteOne(filter);
+      res.send(result)
+    })
+
+
+    app.delete('/reports/:id', verifyJWT, async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: ObjectId(id)};
+      const result = await reportItemsCollection.deleteOne(filter);
       res.send(result)
     })
 
